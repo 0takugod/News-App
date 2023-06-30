@@ -1,0 +1,9 @@
+.us-card-body {
+  height: 250px; /* Adjust the height as per your preference */
+  overflow-y: scroll;
+}
+
+.germany-card-body {
+  height: 250px; /* Adjust the height as per your preference */
+  overflow-y: scroll;
+}
