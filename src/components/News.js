@@ -8,6 +8,7 @@ const News = () => {
     germanyNews: [],
     trumpNews: [],
   });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchNewsData();
@@ -42,6 +43,7 @@ const News = () => {
         germanyNews: dataGermany.articles,
         trumpNews: dataTrump.articles,
       });
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -51,66 +53,72 @@ const News = () => {
     <div className="news-app">
       <Container className="mt-5">
         <h1 className="text-center mb-5">News Headlines</h1>
-        <Row>
-          <Col md={4} sm={6}>
-            <Card className="custom-card bg-primary">
-              <Card.Header className="custom-card-header text-white">
-                Headlines from US
-              </Card.Header>
-              <Card.Body>
-                <ul className="list-unstyled">
-                  {newsData.usNews.map((news) => (
-                    <li key={news.title}>{news.title}</li>
-                  ))}
-                </ul>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col md={4} sm={6}>
-            <Card className="custom-card bg-secondary">
-              <Card.Header className="custom-card-header text-white">
-                Headlines from BBC
-              </Card.Header>
-              <Card.Body>
-                <ul className="list-unstyled">
-                  {newsData.bbcNews.map((news) => (
-                    <li key={news.title}>{news.title}</li>
-                  ))}
-                </ul>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col md={4} sm={6}>
-            <Card className="custom-card bg-info">
-              <Card.Header className="custom-card-header text-white">
-                Headlines from Germany
-              </Card.Header>
-              <Card.Body>
-                <ul className="list-unstyled">
-                  {newsData.germanyNews.map((news) => (
-                    <li key={news.title}>{news.title}</li>
-                  ))}
-                </ul>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
-        <Row className="justify-content-center mt-5">
-          <Col xs={12} sm={10} md={8} lg={6} className="text-center">
-            <Card className="custom-card bg-dark text-white">
-              <Card.Header className="custom-card-header">
-                Headlines related to Trump
-              </Card.Header>
-              <Card.Body>
-                <ul className="list-unstyled">
-                  {newsData.trumpNews.map((news) => (
-                    <li key={news.title}>{news.title}</li>
-                  ))}
-                </ul>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <Row>
+            <Col md={4} sm={6}>
+              <Card className="custom-card bg-primary">
+                <Card.Header className="custom-card-header text-white">
+                  Headlines from US
+                </Card.Header>
+                <Card.Body>
+                  <ul className="list-unstyled">
+                    {newsData.usNews.map((news) => (
+                      <li key={news.title}>{news.title}</li>
+                    ))}
+                  </ul>
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col md={4} sm={6}>
+              <Card className="custom-card bg-secondary">
+                <Card.Header className="custom-card-header text-white">
+                  Headlines from BBC
+                </Card.Header>
+                <Card.Body>
+                  <ul className="list-unstyled">
+                    {newsData.bbcNews.map((news) => (
+                      <li key={news.title}>{news.title}</li>
+                    ))}
+                  </ul>
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col md={4} sm={6}>
+              <Card className="custom-card bg-info">
+                <Card.Header className="custom-card-header text-white">
+                  Headlines from Germany
+                </Card.Header>
+                <Card.Body>
+                  <ul className="list-unstyled">
+                    {newsData.germanyNews.map((news) => (
+                      <li key={news.title}>{news.title}</li>
+                    ))}
+                  </ul>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        )}
+        {!loading && (
+          <Row className="justify-content-center mt-5">
+            <Col xs={12} sm={10} md={8} lg={6} className="text-center">
+              <Card className="custom-card bg-dark text-white">
+                <Card.Header className="custom-card-header">
+                  Headlines related to Trump
+                </Card.Header>
+                <Card.Body>
+                  <ul className="list-unstyled">
+                    {newsData.trumpNews.map((news) => (
+                      <li key={news.title}>{news.title}</li>
+                    ))}
+                  </ul>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        )}
       </Container>
     </div>
   );
